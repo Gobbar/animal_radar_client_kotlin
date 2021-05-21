@@ -3,6 +3,7 @@ package screens.AnimalList
 import Response.AnimalList
 import Response.Position
 import Response.QuestApi
+import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -17,9 +18,9 @@ class AnimalListFragment: Fragment(R.layout.activity_main) {
 
     }
 
-    fun updateAnimal(position: Position) {
+    fun updateAnimal(position: Position, database: SQLiteDatabase) {
         val animalListViewModel = ViewModelProviders.of(this).get(AnimalListViewModel::class.java)
-        animalListViewModel.fetchAnimalList((activity?.application as? AnimalApp)?.questApi, position)
+        animalListViewModel.fetchAnimalList((activity?.application as? AnimalApp)?.questApi, position, database)
     }
 
     fun sendAnimalList(animalList: AnimalList) {

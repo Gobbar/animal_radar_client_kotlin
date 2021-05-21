@@ -3,7 +3,9 @@ package screens.AnimalList
 import Response.AnimalList
 import Response.Position
 import Response.QuestApi
+import Response.setdata
 import android.app.Application
+import android.database.sqlite.SQLiteDatabase
 import androidx.lifecycle.AndroidViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -18,13 +20,13 @@ class AnimalListViewModel(application: Application): AndroidViewModel(applicatio
         super.onCleared()
     }
 
-    fun fetchAnimalList(questApi: QuestApi?, position: Position) {
+    fun fetchAnimalList(questApi: QuestApi?, position: Position, database: SQLiteDatabase) {
         questApi?.let {
             compositeDisposable.add(questApi.getAnimals(position)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    //TODO("Запись данных в бд")
+                    database.setdata(it)
                     println("Get response")
                 }, {
                     println("Gson error")
@@ -38,7 +40,7 @@ class AnimalListViewModel(application: Application): AndroidViewModel(applicatio
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    //TODO("Запись данных в бд")
+
                     println("Get response")
                 }, {
                     println("Gson error")

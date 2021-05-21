@@ -2,7 +2,7 @@ package Response
 
 import com.google.gson.annotations.SerializedName
 
-data class AnimalList(val items: List<Animal>)
+data class AnimalList(var items: List<Animal>)
 //data class AnimalListResponse(val items: List<String>)
 
 data class Animal(
@@ -17,7 +17,11 @@ data class Animal(
 
     @SerializedName("longitude")
     var longitude: Double
-    )
+    ){
+    fun set_cur_time(){
+        time = (System.currentTimeMillis()/1000).toUInt()
+    }
+}
 
 data class Position(
     var longitude: Double,

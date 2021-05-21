@@ -30,7 +30,7 @@ class AnimalApp: Application() {
             .build()
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://76073e28989d.ngrok.io")
+            .baseUrl("https://gobbar.herokuapp.com")
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
