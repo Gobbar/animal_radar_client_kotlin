@@ -1,53 +1,85 @@
 package com.example.testrest
 
 import Response.*
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-
-import android.database.Cursor
-import android.Manifest
 import android.content.Context
+import android.os.Build
+import android.view.View
+import java.util.*
+
+//alert
+import android.app.Dialog
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.DialogFragment
+
 import android.content.pm.PackageManager
+//location
 import android.location.Location
 import android.location.LocationManager
+
 import android.widget.TextView
+//timer
 import androidx.core.app.ActivityCompat
+import android.os.Handler
+import android.os.Looper
+
+import screens.AnimalList.AnimalListFragment
+
 import android.Manifest.permission
 import android.Manifest.*
 import android.Manifest.permission.*
 import android.companion.CompanionDeviceManager
-import android.os.Build
-import android.view.View
+import java.util.jar.Manifest.*
+import android.database.Cursor
+import android.Manifest
+import com.example.testrest.MainActivity
 import android.widget.Toast
 import androidx.core.app.ActivityCompat.*
 import androidx.core.content.ContextCompat
 import java.security.Permission
-import java.util.*
-import java.util.jar.Manifest.*
-
-import com.example.testrest.MainActivity
-import screens.AnimalList.AnimalListFragment
+import android.util.Log
 
 class MapActivity : AppCompatActivity(), LocListenerInterface {
     //map
+    //timer
+    lateinit var handler: Handler
 
+    //work with db and server
     private lateinit var animalListFragment: AnimalListFragment
     lateinit var dbhelper: DBHelper
+    var animals = mutableListOf<Animal>()
 
-    private lateinit var forLog: TextView
-    private lateinit var forLat: TextView
+    //location
     private lateinit var myLocListener: MyLocListener
     private lateinit var locationManager: LocationManager
     private lateinit var myLocation: Location
     private var myLatitude: Double = -1.1
     private var myLongitude: Double = -1.1
 
+    private lateinit var forLog: TextView
+    private lateinit var forLat: TextView
+
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map)
-
+        //init db
         dbhelper = DBHelper(this)
 
+        //clear db
+        val database = dbhelper.writableDatabase
+        database.clear()
+
+        //database.getdata()
+        //timer
+        handler = Handler(Looper.getMainLooper())
+
+        //for server
         animalListFragment = AnimalListFragment()
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainer, animalListFragment)
@@ -64,6 +96,17 @@ class MapActivity : AppCompatActivity(), LocListenerInterface {
         myLocListener = MyLocListener()
         myLocListener.setLocListenerInterface(this)
     }
+    // timer
+    private val repeat = object : Runnable{override fun run(){
+        getData()
+        handler.postDelayed(this, 10000)
+        }
+    }
+    override fun onResume(){
+        super.onResume()
+        handler.post(repeat)
+    }
+
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -74,7 +117,6 @@ class MapActivity : AppCompatActivity(), LocListenerInterface {
         if(requestCode == 100 && grantResults[0] == RESULT_OK ){
             checkPermissions()
         }
-
     }
 
     private fun checkPermissions() : Unit {
@@ -86,6 +128,7 @@ class MapActivity : AppCompatActivity(), LocListenerInterface {
         else {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1500, 15f, myLocListener)
         }
+
     }
 
     override fun onLocationChanged(loc: Location) {
@@ -98,7 +141,6 @@ class MapActivity : AppCompatActivity(), LocListenerInterface {
 
     fun getMyLocation(view: View) {
         checkPermissions()
-
         //if (checkSelfPermission(this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(this, ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
         //) {
         //    return
@@ -109,13 +151,18 @@ class MapActivity : AppCompatActivity(), LocListenerInterface {
         //}
     }
 
-    fun getData(view: View) {
+    fun getData() {
+
         val database = dbhelper.writableDatabase
 
+        animalListFragment.updateAnimal(Position(myLongitude, myLatitude), database)
 
-        animalListFragment.updateAnimal(Position(40.0, 12.0), database)
-        //animals.items = database.getdata()
-        //Log.d("mLog", animals.items.get(animals.items.size-1).latitude.toString()+" "+animals.items.get(animals.items.size-1).time)
+        if(database.getdata(animals, myLatitude, myLongitude, (System.currentTimeMillis()/1000).toUInt())){
+            val myDialogFragment = MyDialogFragment()
+            val manager = supportFragmentManager
+            myDialogFragment.show(manager, "myDialog")
+        }
+
 
 
     }
@@ -125,7 +172,25 @@ class MapActivity : AppCompatActivity(), LocListenerInterface {
         val a = Animal(UUID.randomUUID().toString(), 0.toUInt(), myLatitude, myLongitude)
         a.set_cur_time()
         database.setdata(a)
+        animals.add(a)
         var animalList = AnimalList(listOf(a))
         animalListFragment.sendAnimalList(animalList)
     }
 }
+
+class MyDialogFragment : DialogFragment() {
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return activity?.let {
+            val builder = AlertDialog.Builder(it)
+            builder.setTitle("WARNING!!!")
+                .setMessage("ANIMAL!!!")
+
+                .setPositiveButton("OK") { dialog, id ->
+                    dialog.cancel()
+                }
+            builder.create()
+        } ?: throw IllegalStateException("Activity cannot be null")
+    }
+}
+
