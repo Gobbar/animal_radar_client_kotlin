@@ -1,45 +1,34 @@
 package com.example.testrest
 
-import Response.*
-
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.content.Context
-import android.os.Build
-import android.view.View
-import java.util.*
-
 //alert
-import android.app.Dialog
-import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.DialogFragment
 
-import android.content.pm.PackageManager
 //location
-import android.location.Location
-import android.location.LocationManager
 
-import android.widget.TextView
 //timer
-import androidx.core.app.ActivityCompat
-import android.os.Handler
-import android.os.Looper
 
-import screens.AnimalList.AnimalListFragment
-
-import android.Manifest.permission
+import Response.*
 import android.Manifest.*
 import android.Manifest.permission.*
-import android.companion.CompanionDeviceManager
-import java.util.jar.Manifest.*
-import android.database.Cursor
-import android.Manifest
-import com.example.testrest.MainActivity
-import android.widget.Toast
+import android.app.Dialog
+import android.content.Context
+import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationManager
+import android.os.Build
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.view.View
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityCompat.*
-import androidx.core.content.ContextCompat
-import java.security.Permission
-import android.util.Log
+import androidx.fragment.app.DialogFragment
+import screens.AnimalList.AnimalListFragment
+import java.util.*
+import java.util.jar.Manifest.*
+
 
 class MapActivity : AppCompatActivity(), LocListenerInterface {
     //map
@@ -161,6 +150,14 @@ class MapActivity : AppCompatActivity(), LocListenerInterface {
             val myDialogFragment = MyDialogFragment()
             val manager = supportFragmentManager
             myDialogFragment.show(manager, "myDialog")
+            val timer = Timer()
+            timer.schedule(object : TimerTask() {
+                override fun run() {
+                    myDialogFragment.dismiss() // when the task active then close the dialog
+                    timer.cancel() // also just top the timer thread, otherwise,
+                    // you may receive a crash report
+                }
+            }, 5000)
         }
 
 
@@ -189,6 +186,7 @@ class MyDialogFragment : DialogFragment() {
                 .setPositiveButton("OK") { dialog, id ->
                     dialog.cancel()
                 }
+
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")
     }
