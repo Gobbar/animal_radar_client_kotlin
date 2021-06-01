@@ -4,45 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MapActivity">
+    tools:context=".MapActivity"
+    android:background="#003300">
 
     <FrameLayout
-            android:id="@+id/fragmentContainer"
-            android:layout_width="100dp"
-            android:layout_height="100dp" />
-
-    <TextView
-        android:id="@+id/forLog"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="563dp"
-        android:text="log"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/forLat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="lat"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/getMyLoc"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/forLog" />
-
+        android:id="@+id/fragmentContainer"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
     <Button
         android:id="@+id/getMyLoc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_width="366dp"
+        android:layout_height="112dp"
+        android:layout_marginBottom="52dp"
         android:onClick="sendData"
-        android:text="WAAAAAA"
-        android:textSize="24sp"
+        android:rotation="8"
+        android:rotationX="0"
+        android:shadowRadius="0"
+        android:text="GOTCHA!"
+        android:textSize="30dp"
+
+        app:cornerRadius="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/HelpText"
+        android:layout_width="256dp"
+        android:layout_height="375dp"
+        android:layout_marginTop="100dp"
+        android:textColor="#bbbbbb"
+        android:text="Нажми на кнопку, когда увидишь дикую зверушку. Данные о ее местоположении отправятся на сервер. Водители будут готовы к встрече с ней и она не пострадает :)"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.544"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

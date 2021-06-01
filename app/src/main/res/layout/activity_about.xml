@@ -4,6 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AboutActivity">
+    tools:context=".AboutActivity"
+    android:background="#003300">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="300dp"
+        android:layout_height="237dp"
+        android:layout_marginTop="108dp"
+        android:text="Привет, дорогой пользователь. Данное приложение создано для возможности отметить дикое животное, чтобы другие водители могли избежать встречи с ним (или были осторожнее, если встреча все же неизбежна). "
+        android:textColor="#bbbbbb"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="300dp"
+        android:layout_height="236dp"
+        android:text="Дербина Полина, Дорофеев Иван и Казимиров Алексей, обучаюшиеся в 351812 группе, создали сие творение."
+        android:textSize="20dp"
+        android:textColor="#bbbbbb"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

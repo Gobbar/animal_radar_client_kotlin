@@ -4,6 +4,109 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".InfoActivity">
+    tools:context=".InfoActivity"
+    android:background="#003300"
+    android:scrollbars="vertical">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="287dp"
+        android:layout_height="109dp"
+        android:layout_marginTop="60dp"
+        android:text="Памятка (на случай столкновения с диким зверем)"
+        android:textColor="#bbbbbb"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="354dp"
+        android:layout_height="539dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/s1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="•	Не подкрадывайтесь к животным. "
+                android:textColor="#bbbbbb"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/s2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="•	Передвигайтесь по лесу шумно."
+                android:textColor="#bbbbbb"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/s3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="• Если повстречались - дайте животному возможность уйти."
+                android:textColor="#bbbbbb"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/s4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="•	Не убегайте и не поворачивайтесь спиной."
+                android:textColor="#bbbbbb"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/s5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="•	Не смотрите в глаза."
+                android:textColor="#bbbbbb"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/s6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="•	Не делайте резких движений. Не кричите, не пытайтесь его прогнать, не машите на него руками или ногами, не бросайте в него ничего."
+                android:textColor="#bbbbbb"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/s7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="•	Не подходите и не прикасайтесь. Даже если вам кажется, что животное не опасно, и даже если оно само идёт на контакт."
+                android:textColor="#bbbbbb"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/s8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="•	Будьте крайне осторожны с ранеными, больными животными."
+                android:textColor="#bbbbbb"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/s9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="•	Держитесь подальше от детёнышей."
+                android:textColor="#bbbbbb"
+                android:textSize="18dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,46 +4,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
+    tools:context=".MainActivity"
+    android:background="#003300">
 
     <Button
         android:id="@+id/buttonMap"
-        android:layout_width="150dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="115dp"
+        android:layout_width="170dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="228dp"
+        android:layout_marginEnd="56dp"
+        android:layout_marginRight="56dp"
         android:ellipsize="none"
-        android:text="Map"
         android:onClick="clickToMap"
+        android:rotation="5"
+        android:text="Map"
+        android:textColor="#bbbbbb"
+        android:textSize="20dp"
+        app:backgroundTint="#4ba64b"
         app:cornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/buttonInfo"
-        android:layout_width="150dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="50dp"
-        android:text="Information"
+        android:layout_width="250dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginRight="52dp"
         android:onClick="clickToInfo"
+        android:rotation="-10"
+        android:text="Information"
+        android:textColor="#bbbbbb"
+        android:textSize="20dp"
+        app:backgroundTint="#4ba64b"
         app:cornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonMap" />
 
     <Button
         android:id="@+id/buttonAbout"
         android:layout_width="150dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="50dp"
-        android:text="About us"
+        android:layout_height="100dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
         android:onClick="clickToAbout"
+        android:rotation="3"
+        android:text="About us"
+        android:textColor="#bbbbbb"
+        android:textSize="20dp"
+        app:backgroundTint="#4ba64b"
         app:cornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonInfo" />
 
 

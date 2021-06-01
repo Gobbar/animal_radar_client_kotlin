@@ -12,6 +12,7 @@ import android.Manifest.permission.*
 import android.app.Dialog
 import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.Color.parseColor
 import android.location.Location
 import android.location.LocationManager
 import android.os.Build
@@ -19,6 +20,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -44,13 +46,13 @@ class MapActivity : AppCompatActivity(), LocListenerInterface {
     private lateinit var myLocListener: MyLocListener
     private lateinit var locationManager: LocationManager
     private lateinit var myLocation: Location
-    private var myLatitude: Double = -1.1
-    private var myLongitude: Double = -1.1
+    private var myLatitude: Double = 4242424242.0
+    private var myLongitude: Double = 4242424242.0
 
     private lateinit var forLog: TextView
     private lateinit var forLat: TextView
 
-
+    private lateinit var getLocButton: Button
 
 
 
@@ -63,7 +65,6 @@ class MapActivity : AppCompatActivity(), LocListenerInterface {
         //clear db
         val database = dbhelper.writableDatabase
         database.clear()
-
         //database.getdata()
         //timer
         handler = Handler(Looper.getMainLooper())
@@ -75,20 +76,34 @@ class MapActivity : AppCompatActivity(), LocListenerInterface {
             .commit()
 
         init()
+        getLocButton.setBackgroundColor(parseColor("#808080"))
+        getLocButton.text = "Подключение к GPS спутнику"
+        getLocButton.isClickable=false
         checkPermissions()
     }
 
     private fun init() : Unit {
-        forLat = findViewById(R.id.forLat)
-        forLog = findViewById(R.id.forLog)
+        //forLat = findViewById(R.id.forLat)
+        //forLog = findViewById(R.id.forLog)
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         myLocListener = MyLocListener()
         myLocListener.setLocListenerInterface(this)
+        getLocButton = findViewById(R.id.getMyLoc)
     }
     // timer
     private val repeat = object : Runnable{override fun run(){
         getData()
-        handler.postDelayed(this, 10000)
+        if (myLatitude == 4242424242.0 || myLongitude == 4242424242.0) {
+            getLocButton.isClickable = false
+            getLocButton.text = "Подключение к GPS спутнику"
+            getLocButton.setBackgroundColor(parseColor("#808080"))
+        }
+        else {
+            getLocButton.isClickable = true
+            getLocButton.text = "gotcha!"
+            getLocButton.setBackgroundColor(parseColor("#4ba64b"))
+        }
+        handler.postDelayed(this, 5000)
         }
     }
     override fun onResume(){
@@ -123,8 +138,8 @@ class MapActivity : AppCompatActivity(), LocListenerInterface {
     override fun onLocationChanged(loc: Location) {
         myLatitude = loc.latitude
         myLongitude = loc.longitude
-        forLat.setText("lat =  $myLatitude")
-        forLog.setText("log = $myLongitude")
+        //forLat.setText("lat =  $myLatitude")
+        //forLog.setText("log = $myLongitude")
 
     }
 
@@ -170,6 +185,7 @@ class MapActivity : AppCompatActivity(), LocListenerInterface {
         a.set_cur_time()
         database.setdata(a)
         animals.add(a)
+
         var animalList = AnimalList(listOf(a))
         animalListFragment.sendAnimalList(animalList)
     }
